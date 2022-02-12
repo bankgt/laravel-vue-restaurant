@@ -1,0 +1,54 @@
+version: "3"
+services:
+  db:
+    image: mysql:5.7
+    container_name: zerotoone_mysqldb
+    restart: always
+    volumes:
+      - ./mysql/initdb/:/docker-entrypoint-initdb.d
+      - ./mysql/data/:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=zerotoone
+      - MYSQL_USER=zerotoone
+      - MYSQL_PASSWORD=zerotoone
+
+  php:
+    build:
+      context: ./php
+      dockerfile: Dockerfile
+    container_name: zerotoone_php-fpm
+    restart: always
+    working_dir: /var/www
+    volumes:
+      - ./www/:/var/www
+    expose:
+      - "9000"
+
+  nginx:
+    image: nginx:alpine
+    container_name: zerotoone_nginx
+    restart: always
+    volumes:
+      - ./nginx/conf/nginx.conf:/etc/nginx/conf/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+    volumes_from:
+      - php
+    ports:
+      - "80:80"
+      - "443:443"
+
+  pma:
+    image: phpmyadmin/phpmyadmin
+    container_name: zerotoone_phpmyadmin
+    restart: always
+    links:
+      - db
+    environment:
+      UPLOAD_LIMIT: 64M
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+      PMA_ABSOLUTE_URI: localhost/phpmyadmin/
+    ports:
+      - "8000:80"
