@@ -1,6 +1,7 @@
 version: "3"
 services:
   db:
+    platform: linux/x86_64
     image: mysql:5.7
     container_name: zerotoone_mysqldb
     restart: always
@@ -21,9 +22,17 @@ services:
     restart: always
     working_dir: /var/www
     volumes:
-      - ./www/:/var/www
-    expose:
-      - "9000"
+      - ./api/:/var/www
+
+  app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    container_name: zerotoone_app
+    restart: always
+    working_dir: /usr/app
+    volumes:
+      - ./app/:/usr/app
 
   nginx:
     image: nginx:alpine
@@ -32,8 +41,6 @@ services:
     volumes:
       - ./nginx/conf/nginx.conf:/etc/nginx/conf/nginx.conf:ro
       - ./nginx/conf.d:/etc/nginx/conf.d:ro
-    volumes_from:
-      - php
     ports:
       - "80:80"
       - "443:443"
