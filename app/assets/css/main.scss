@@ -1,0 +1,21 @@
+$input-border-radius: 30px;
+$input-height: 30px;
+$card-border-radius: 30px;
+$input-padding-y: 30px;
+$input-padding-x: 30px;
+$custom-select-padding-y: 30px;
+$custom-select-padding-x: 30px;
+$custom-select-indicator-padding:  30px;
+$font-family-base: 'Quicksand';
+$headings-font-weight: 700;
+$input-border-width: 0;
+$card-border-width: 0;
+
+// Bootstrap and its default variables
+@import '~bootstrap/scss/bootstrap';
+// BootstrapVue and its default variables
+@import '~bootstrap-vue/src/index.scss';
+
+.card-title {
+  margin-top: $card-spacer-y;
+}
