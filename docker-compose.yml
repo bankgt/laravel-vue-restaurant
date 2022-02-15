@@ -56,6 +56,6 @@ services:
       PMA_HOST: db
       PMA_PORT: 3306
       PMA_ARBITRARY: 1
-      PMA_ABSOLUTE_URI: localhost/phpmyadmin/
+      # PMA_ABSOLUTE_URI: localhost/phpmyadmin/
     ports:
       - "8000:80"
