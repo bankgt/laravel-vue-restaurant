@@ -1,7 +1,7 @@
 <!-- Please remove this file from your project -->
 <template>
   <b-input-group class="mb-2 input-group shadow-lg">
-    <b-form-input v-model="text" type="search" placeholder="Search" />
+    <b-form-input v-model="text" type="search" placeholder="Search" @keyup.13="$emit('change', $event.target.value)" />
     <b-input-group-append class="icon d-flex align-items-center justify-content-center">
       <b-icon icon="search" font-scale="1.5" class="text-muted"></b-icon>
     </b-input-group-append>
