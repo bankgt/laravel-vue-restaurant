@@ -5,14 +5,12 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use App\Models\Restaurant;
-use GoogleMaps\Facade\GoogleMapsFacade\GoogleMaps;
-
 class RestaurantController extends BaseController
 {
     private function mapAddress($restaurant)
     {
       $restaurant->address = Cache::rememberForever('restaurant-address-' . $restaurant->latlng, function () use ($restaurant) {
-        $response = GoogleMaps::load('geocoding')
+        $response = \GoogleMaps::load('geocoding')
           ->setParamByKey('latlng', $restaurant->latlng)
           ->get('results.formatted_address');
         return $response['results'][0]['formatted_address'];
