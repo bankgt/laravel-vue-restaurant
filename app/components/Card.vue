@@ -11,8 +11,7 @@
               {{ data.description }}
             </b-card-text>
             <div class="text-black-50">
-              <b-icon icon="geo-alt" font-scale="1"></b-icon> 48 Pirrama Rd,
-              Pyrmont NSW 2009, Australia
+              <b-icon icon="geo-alt" font-scale="1"></b-icon> {{ data.address }}
             </div>
           </div>
 
