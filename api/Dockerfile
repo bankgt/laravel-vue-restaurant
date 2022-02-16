@@ -95,8 +95,15 @@ RUN composer global require "squizlabs/php_codesniffer=*"
 # Cleanup dev dependencies
 RUN apk del -f .build-deps
 
+# RUN chown -R www-data:www-data /var/www
+
 # Setup working directory
 WORKDIR /var/www
+
+COPY --chown=www-data:www-data . .
+RUN composer install
+
+USER www-data
 
 EXPOSE 9000
 CMD ["php-fpm"]

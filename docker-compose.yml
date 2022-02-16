@@ -13,16 +13,15 @@ services:
       - MYSQL_DATABASE=zerotoone
       - MYSQL_USER=zerotoone
       - MYSQL_PASSWORD=zerotoone
-
-  php:
+  
+  api:
     build:
-      context: ./php
+      context: ./api
       dockerfile: Dockerfile
-    container_name: zerotoone_php-fpm
+    container_name: zerotoone_api
     restart: always
-    working_dir: /var/www
-    volumes:
-      - ./api/:/var/www
+    # volumes:
+    #   - ./api/:/var/www
 
   app:
     build:
@@ -30,9 +29,6 @@ services:
       dockerfile: Dockerfile
     container_name: zerotoone_app
     restart: always
-    working_dir: /usr/app
-    volumes:
-      - ./app/:/usr/app
 
   nginx:
     image: nginx:alpine
